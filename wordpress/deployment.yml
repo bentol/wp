@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog
+  labels:
+    app: blog
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: blog
+  template:
+    metadata:
+      labels:
+        app: blog
+    spec:
+      containers:
+        - image: wordpress
+          name: wordpress
+          env:
+            - name: WORDPRESS_DB_HOST
+              value: '#DB_HOST#:3306'
+            - name: WORDPRESS_DB_USER
+              value: '#DB_USER#'
+            - name: WORDPRESS_DB_PASSWORD
+              value: '#DB_PASSWORD#'
+          ports:
+            - containerPort: 80
+              name: wordpress
